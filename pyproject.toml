@@ -1,0 +1,20 @@
+[project]
+name = "ypt-python"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "derived-functor", email = "boy4rov.da@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "httpx>=0.27,<1",
+    "pydantic>=2.0,<3",
+]
+
+[project.scripts]
+ypt-python = "ypt_python:main"
+
+[build-system]
+requires = ["uv_build>=0.12.10,<0.13.0"]
+build-backend = "uv_build"
