@@ -1,10 +1,18 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from ypt_python._http import HTTPClient
 from ypt_python._models import LoginResponse
 
+if TYPE_CHECKING:
+    from ypt_python._token_cache import TokenCache
+
 
 class AuthNamespace:
-    def __init__(self, http: HTTPClient) -> None:
+    def __init__(self, http: HTTPClient, cache: TokenCache | None = None) -> None:
         self._http = http
+        self._cache = cache
 
     async def login(
         self,
@@ -26,6 +34,8 @@ class AuthNamespace:
         resp = LoginResponse.from_raw(data)
         if resp.jwt:
             self._http.token = resp.jwt
+            if self._cache is not None:
+                self._cache.save(resp.jwt)
         return resp
 
     async def reload_info(self) -> LoginResponse:

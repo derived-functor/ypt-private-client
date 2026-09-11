@@ -10,7 +10,13 @@ from ypt_python._models import (
     Subject,
     SubjectLogEntry,
 )
+from ypt_python._token_cache import TokenCache
 from ypt_python.client import YPTClient
+
+try:
+    from ypt_python.cli.app import main
+except ImportError:  # pragma: no cover - CLI deps not installed
+    main = None  # type: ignore[assignment]
 
 __all__ = [
     "APIError",
@@ -27,4 +33,6 @@ __all__ = [
     "Subject",
     "SubjectLogEntry",
     "YPTError",
+    "TokenCache",
+    "main",
 ]
