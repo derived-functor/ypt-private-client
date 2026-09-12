@@ -7,7 +7,7 @@ from pydantic import BaseModel
 
 def _get(data: dict, *keys: str, default: object = None) -> object:
     for key in keys:
-        if key in data:
+        if key in data and data[key] is not None:
             return data[key]
     return default
 
